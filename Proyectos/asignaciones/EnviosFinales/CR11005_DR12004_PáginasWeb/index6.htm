@@ -1,0 +1,71 @@
+<html>
+	<head>
+		<title>Asignaci&oacute;n 6</title>
+		<!--<meta http-equiv="refresh" content="30">-->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.1/bootstrap-material-design.min.css">
+		<script  type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
+		<script>
+        function GetArduinoInputs()
+        {
+            nocache = "&nocache=" + Math.random() * 1000000;
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function()
+            {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {
+                        if (this.responseXML != null) {
+                            // extract XML data from XML file (containing switch states and analog value)
+									 var rojo = this.responseXML.getElementsByTagName('val')[0].childNodes[0].nodeValue;
+									 var verde = this.responseXML.getElementsByTagName('val1')[0].childNodes[0].nodeValue;
+                            var azul = this.responseXML.getElementsByTagName('val2')[0].childNodes[0].nodeValue;
+                            var estilo = "background-color: rgb(";
+                            var estilo1 = estilo.concat(rojo,",",verde,",",azul,");");
+                            document.getElementById("input1").innerHTML =
+                                this.responseXML.getElementsByTagName('analog')[0].childNodes[0].nodeValue;
+                            document.getElementById("input2").innerHTML =
+                                this.responseXML.getElementsByTagName('analog1')[0].childNodes[0].nodeValue;
+                            document.getElementById("input3").innerHTML =
+                                this.responseXML.getElementsByTagName('analog2')[0].childNodes[0].nodeValue;
+                            document.getElementById("cuerpo").setAttribute("style", estilo1);
+                        }
+                    }
+                }
+            }
+            request.open("GET", "ajax_inputs" + nocache, true);
+            request.send(null);
+            setTimeout('GetArduinoInputs()', 200);
+        }
+    </script>
+	</head>
+	<body id="cuerpo" style="background-color: rgb(0,0,0);" class="text-xs-center" onload="GetArduinoInputs();">
+		<div class="container">
+			<div class="jumbotron" style="background: aliceblue;">
+				<div class="page-header text-danger" style="font-family: monospace;">
+  					<h5>Universidad de El Salvador</h5>
+					<h5>Facultad de Ingenier&iacute;a & Arquitectura</h5>
+					<h5>Escuela de Ingenier&iacute;a El&eacute;ctrica</h5>
+					<h5>Sistemas Embebidos</h5>
+					<h5>Ciclo I - 2016</h5>
+				</div>
+				<div class="jumbotron text-xs-left">
+					<h4 class="text-info" style="font-weight: bold;">Asignaci&oacute;n 6</h4>
+					<p style="font-style: italic; font-weight: bold;">
+						P&aacute;gina web que muestra los colores Rojo, Verde y Azul, y sus respectivas combinaciones seg&uacute;n el
+						valor decimal enviado desde un Keypad 4x4.<br><br>
+					</p>
+					<button type="button" class="btn btn-lg btn-block" style="background-color: red;">Rojo: <span id="input1">0</span>%</button>
+       			<button type="button" class="btn btn-lg btn-block" style="background-color: green;">Verde: <span id="input2">0</span>%</button>
+        			<button type="button" class="btn btn-lg btn-block" style="background-color: blue;">Azul: <span id="input3">0</span>%</button>
+				</div>
+				<div class="page-footer" style="font-family: font-family-serif;">
+							<h6><small><i>
+							C&aacute;ceres Ramos, Fredy Antonio: CR11005<br>
+							D&iacute;az Ramirez, Yohalmo Alexander: DR12004<br>
+							Estudiante de Ingenier&iacute;a de Sistemas Inform&aacute;ticos.
+							</i></small></h6>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

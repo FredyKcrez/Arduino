@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Segunda Asignacion</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="http://arduino.cc/en/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <!-- Bootstrap Material Design -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.1/bootstrap-material-design.min.css">
+
+    <script>
+      strRED = "";
+      strGRN = "";
+      strBLU = "";
+
+      function GetArduinoIO(){
+        nocache = "&nocache=" + Math.random() * 1000000;
+        var request = new XMLHttpRequest();
+        request.onreadystatechange = function(){
+          if (this.readyState == 4) {
+            if (this.status == 200) {
+              if (this.responseXML != null) {
+                document.getElementById("input1").innerHTML = this.responseXML.getElementsByTagName('color')[0].childNodes[0].nodeValue;
+                document.getElementById("input2").innerHTML = this.responseXML.getElementsByTagName('color')[1].childNodes[0].nodeValue;
+                document.getElementById("input3").innerHTML = this.responseXML.getElementsByTagName('color')[2].childNodes[0].nodeValue;
+              }
+            }
+          }
+        }
+
+        request.open("GET", "ajax_inputs" + strRED + strGRN + strBLU + nocache, true);
+        request.send(null);
+        setTimeout('GetArduinoIO()', 1000);
+        strRED = "";
+        strGRN = "";
+        strBLU = "";
+      }
+      // service LEDs when checkbox checked/unchecked
+      function GetValues() {
+        var rojo  = document.getElementById("red").value;
+            verde = document.getElementById("grn").value;
+            azul  = document.getElementById("blu").value;
+
+        if (rojo.length == 1) {
+          strRED = "RED="+"00"+rojo;
+        }
+        else if (rojo.length == 2) {
+          strRED = "RED="+"0"+rojo;
+        }
+        else {
+          strRED = "RED="+rojo;
+        }
+
+        if (verde.length == 1) {
+          strGRN = "GRN="+"00"+verde;
+        }
+        else if (verde.length == 2) {
+          strGRN = "GRN="+"0"+verde;
+        }
+        else {
+          strGRN = "GRN="+verde;
+        }
+
+        if (azul.length == 1) {
+          strBLU = "BLU="+"00"+azul;
+        }
+        else if (azul.length == 2) {
+          strBLU = "BLU="+"0"+azul;
+        }
+        else {
+          strBLU = "BLU="+azul;
+        }
+      }
+</script>
+
+</head>
+
+<body onload="GetArduinoIO()">
+
+    <div class="container"><br>
+
+        <div class="panel panel-default">
+
+            <div class="panel-heading">
+              <h1 class="text-default" id="texto">Arduino Ethernet: Segunda Asignacion</h1>
+            </div>
+                  <div class="panel-body">
+
+                    <table class="table table-striped table-hover">
+                        <tr class="danger">
+                          <td> <h4><p class="text-danger"><strong>ROJO: </strong><span id="input1"><strong>...</strong></span></p></h4> </td>
+                        </tr>
+                        <tr>
+                          <td> <input type="range" id="red" min=0 max=255 oninput="GetValues()"> </td>
+                        </tr>
+                         <tr class="success">
+                          <td> <h4><p class="text-success"><strong>VERDE: </strong><span id="input2"><strong>...</strong></span></p></h4> </td>
+                        </tr>
+                        <tr>
+                          <td> <input type="range" id="grn" min=0 max=255 oninput="GetValues()"> </td>
+                        </tr>
+                        <tr class="info">
+                          <td> <h4><p class="text-info"><strong>AZUL: </strong><span id="input3"><strong>...</strong></span></p></h4> </td>
+                        </tr>
+                        <tr>
+                          <td> <input type="range" id="blu" min=0 max=255 oninput="GetValues()"> </td>
+                        </tr>
+                    </table>
+
+                  </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+<html>
+	<head>
+		<title>Asignaci&oacute;n 5</title>
+		<!--<meta http-equiv="refresh" content="30">-->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://seiyria.com/bootstrap-slider/css/bootstrap-slider.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/4.0.1/bootstrap-material-design.min.css">
+		<style type="text/css">
+			#RGB {
+    		height: 20px;
+    		background: rgb(128, 128, 128);
+  		}
+		#RC .slider-selection {
+		    background: #FF0000;
+		}
+		#RC .slider-handle {
+			background: red;
+		}
+		#GC .slider-selection {
+			background: #009000;
+		}
+		#GC .slider-handle {
+			background: green;
+		}
+		#BC .slider-selection {
+			background: #0000FF;
+		}
+		#BC .slider-handle {
+			background: blue;
+		}
+		#RC, #GC, #BC {
+			width: 400px;
+		}
+		#grafica {
+        width : 600px;
+        height: 384px;
+        margin: 8px auto;
+      }
+		</style>		
+		<script  type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
+		<script>
+        strVal1 = "";
+		  strVal2 = "";
+		  strVal3 = "";
+        function GetArduino0()
+        {
+            nocache = "&nocache=" + Math.random() * 1000000;
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function()
+            {
+                if (this.readyState == 4) {
+                    if (this.status == 200) {
+                        if (this.responseXML != null) {
+                            // extract XML data from XML file (containing switch states and analog value)
+									 document.getElementById("input1").innerHTML =
+                                this.responseXML.getElementsByTagName('analog')[0].childNodes[0].nodeValue;
+                            document.getElementById("input2").innerHTML =
+                                this.responseXML.getElementsByTagName('analog1')[0].childNodes[0].nodeValue;
+                            document.getElementById("input3").innerHTML =
+                                this.responseXML.getElementsByTagName('analog2')[0].childNodes[0].nodeValue;
+                            document.getElementById("cuerpo").setAttribute("style", estilo1);
+                        }
+                    }
+                }
+            }
+            request.open("GET", "ajax_inputs" + strVal1 + strVal2 + strVal3 + nocache, true);
+            request.send(null);
+            setTimeout('GetArduinoO()', 200);
+            strVal1 = "";
+		  		strVal2 = "";
+		  		strVal3 = "";
+        }
+    </script>
+    
+	</head>
+	<body id="cuerpo" background="http://pic.1fotonin.com/data/wallpapers/92/WDF_1365508.jpg" class="text-xs-left" onload="GetArduinoO();">
+		<div class="container">
+			<div class="jumbotron" style="background: aliceblue;">
+				<div class="page-header text-danger" style="font-family: inherit; font-style: italic;">
+  					<h5>Universidad de El Salvador</h5>
+					<h5>Facultad de Ingenier&iacute;a & Arquitectura</h5>
+					<h5>Escuela de Ingenier&iacute;a El&eacute;ctrica</h5>
+					<h5>Sistemas Embebidos</h5>
+					<h5>Ciclo I - 2016</h5>
+				</div>
+				<div class="jumbotron">
+					<h4 class="text-info"><b><i>Asignaci&oacute;n 5</i></b></h4>
+					<p style="font-family: inherit; font-style: oblique;">
+						P&aacute;gina web que muestra la forma de onda inyectada al anal&oacute;gico A0.<br><br>
+					</p>
+					<div id="grafica"></div>
+				</div>
+				<div class="page-footer" style="font-family: font-family-serif;">
+							<h6><small><i>
+							C&aacute;ceres Ramos, Fredy Antonio: CR11005<br>
+							Diaz Ramirez, Yohalmo Alexander: DR12004<br>
+							Estudiante de Ingenier&iacute;a de Sistemas Inform&aacute;ticos.
+							</i></small></h6>
+				</div>
+			</div>
+		</div>
+	</body>
+    <script type="text/javascript" src="https://raw.githubusercontent.com/HumbleSoftware/Flotr2/master/flotr2.min.js"></script>
+    <script type="text/javascript">
+      (function () {
+
+        var
+          container = document.getElementById('grafica'),
+          start = (new Date).getTime(),
+          data, graph, offset, i;
+
+        // Draw a sine curve at time t
+        function animate (t) {
+
+          data = [];
+          offset = 2 * Math.PI * (t - start) / 10000;
+
+          // Sample the sine function
+          for (i = 0; i < 4 * Math.PI; i += 0.2) {
+            data.push([i, Math.sin(i - offset)]);
+          }
+
+          // Draw Graph
+          graph = Flotr.draw(container, [ data ], {
+            yaxis : {
+              max : 5,
+              min : 0
+            }
+          });
+
+          // Animate
+          setTimeout(function () {
+            animate((new Date).getTime());
+          }, 50);
+        }
+
+        animate(start);
+      })();
+    </script>
+</html>
