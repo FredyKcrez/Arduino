@@ -16,8 +16,10 @@
  * https://www.arduino.cc/en/Reference/Map descripción de la función map
  * https://www.arduino.cc/en/Tutorial/StringConstructors manejo de cadenas string (Revisar)
  * https://www.arduino.cc/en/Reference/Micros funcion Micros
- * http://garretlab.web.fc2.com/en/arduino/inside/arduino/wiring_analog.c/analogRead.html Lectura analogica rápida
- * http://forum.arduino.cc/index.php?topic=133907.0 Lectura rápida Arduino's Page
+ * Lecturas rapida
+ * http://garretlab.web.fc2.com/en/arduino/inside/arduino/wiring_analog.c/analogRead.html
+ * http://forum.arduino.cc/index.php?topic=133907.0
+ * http://openenergymonitor.blogspot.com/2012/08/low-level-adc-control-admux.html
  */
 
 /*
