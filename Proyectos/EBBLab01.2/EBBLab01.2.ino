@@ -72,6 +72,9 @@ void loop() {
   //delay(500);
 }
 
+/*
+ * La siguiente función permite realizar el mapeo de las lecturas de los potenciometros con valores decimales de 2 cifras
+ */
 float fmap(float x, float in_min, float in_max, float out_min, float out_max)
 {
   return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
