@@ -3,11 +3,12 @@
   Facultad de Ingeniería y Arquitectura
   Escuela de Ingeniería Electrica
   Sistemas Embebidos
+  EBB115 - Ciclo I - 2016
 
   Estudiante: Br. Fredy A. Cáceres Ramos
   Facilitador: Msc. e Ing. Wilber Calderón
   Fecha de creación de Sketch: 11-Marzo-2016
-  Ultima modoficación del Sketch: 14-Marzo-2016
+  Ultima modoficación del Sketch: 23-Julio-2016
 *********************************************************************/
 
 /*
@@ -41,9 +42,8 @@
  * Para mejor visualización de las coordenadas y direccionamiento del cursor abrir el monitor serie.
  */
 
-const int pinH = A1;
-const int pinV = A0;
-
+#define pinH A1
+#define pinV A0
 #define x0 41
 #define y0 23
 
@@ -56,7 +56,7 @@ int uYmov = 23;
 //int cont = 0; //contador para ver cuando se terminar de ejecitar el movimiento del cursor.
 int lectH, lectV;
 
-/* Definición de los pines para el uso de la pantalla 5110*/
+/* Definición de los pines para el uso de la pantalla 5110 */
 Adafruit_PCD8544 display = Adafruit_PCD8544(7, 6, 5, 4, 3);
 
 void setup() {
@@ -83,9 +83,9 @@ void loop() {
   //  cont++; //aumentar el contador para marcar el pixel que ha sido utilizado.
     lectH = map(analogRead(pinH),0,1023,0,100); //mapea el valor leido del potenciometro a un rango 0-100 en el eje horizontal.
     lectV = map(analogRead(pinV),0,1023,0,100); //mapea el valor leido del potenciometro a un rango 0-100 en el eje vertical.
-    Serial.print("X: ");
+    Serial.print(F("X: "));
     Serial.print(lectH);
-    Serial.print("\tY: ");
+    Serial.print(F("\tY: "));
     Serial.println(lectV);
     drawMyPixel(lectH, lectV); //invocacion del modulo para dibujar el pixel en las coordenas lectH y lectV
     delay(300); //retraso de 300 milisegundos
@@ -144,16 +144,3 @@ void drawMyPixel(int movH, int movV) {
   display.drawPixel(movH, movV, BLACK); //dibuja el pixel segun las coordenadas movH y movV leidas y procesadas.
   display.display(); //muestra en el display el nuevo pixel.
 }
-
-/*
- * endSketch() muestra un mensaje de finalizacion del Sketch, detiene la ejecucion del programa por un minuto y reinicia el
- * cursor al centro para iniciar de nuevo, aun no funcional
- */
- /*
-void endSketch() {
-  display.clearDisplay(); //limpia la pantalla.
-  display.print("Fin del Sketch\n\nFredy Kcrez\n\nUES - FIA"); //mensaje de finalización.
-  delay(60000); //espera por un minuto.
-  display.drawPixel(x0, y0, BLACK); //dibuja un pixel al centro nuevamente.
-  display.display(); //muestra el pixel inicial.
-}*/

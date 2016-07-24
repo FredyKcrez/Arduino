@@ -63,5 +63,4 @@ void registerWrite(int whichPin, int whichState) {
 
     // turn on the output so the LEDs can light up:
   digitalWrite(latchPin, HIGH);
-
 }
